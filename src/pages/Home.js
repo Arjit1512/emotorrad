@@ -40,7 +40,9 @@ const Dashboard = () => {
                     <div className="header-right">
                         <input type="search" placeholder="Search..." className="search-input" />
                         <button className="notification-btn">🔔</button>
-                        <div className="profile-pic"></div>
+                        <div className="profile-pic">
+                            
+                        </div>
                     </div>
                 </header>
 
