@@ -5,12 +5,14 @@ import '../styling/Login.css';
 import logo from '../logo.png';
 import { FaGithub, FaTwitter, FaLinkedin, FaDiscord, FaApple } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { useMyContext } from './Context';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const { userProfile, setUserProfile } = useMyContext();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Login submitted:', email, password);
@@ -19,7 +21,13 @@ const Login = () => {
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     console.log('Google login success:', decoded);
-    navigate("/");
+    setUserProfile({
+      picture: decoded.picture,
+      name: decoded.name,
+      email: decoded.email
+    });
+
+    navigate("/home");
   };
 
   const handleGoogleError = () => {

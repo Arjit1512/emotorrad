@@ -174,7 +174,6 @@ body{
     margin-bottom: 8px;
 }
 
-/* Add these styles to your existing CSS */
 .cc {
     height: 87%;
 }
@@ -264,7 +263,89 @@ body{
     color: #858585;
     margin: 0;
 }
+/*pop-up*/
 
+.pop-up {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 450px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pop-up h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.pop-up label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.pop-up input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.pop-up input::placeholder {
+    color: #b0b0b0;
+}
+
+.pop-up .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+}
+
+.pop-up .next-btn {
+    background: #3B82F6;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: 10px;
+}
+
+.pop-up .next-btn:hover {
+    background: #2563EB;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
 /*responsiveness*/
 @media (max-width: 1024px) {
     .stats-grid {

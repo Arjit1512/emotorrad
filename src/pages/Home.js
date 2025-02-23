@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
 import '../styling/Home.css';
+import { useMyContext } from './Context';
 
 const Dashboard = () => {
     const activityData = [
@@ -18,22 +19,52 @@ const Dashboard = () => {
     ];
 
     const COLORS = ['#4ade80', '#facc15', '#f87171'];
+    const { userProfile, setUserProfile } = useMyContext();
+
+    const [showPopup, setShowPopup] = useState(false);
+    console.log('USER: ',userProfile);
+
 
     return (
         <div className="dashboard">
-            {/* Sidebar */}
             <div className="sidebar">
                 <h1 className="logo">Board.</h1>
                 <nav className="nav-menu">
-                    <a href="#" className="nav-item active">Dashboard</a>
-                    <a href="#" className="nav-item">Transactions</a>
-                    <a href="#" className="nav-item">Schedules</a>
-                    <a href="#" className="nav-item">Users</a>
-                    <a href="#" className="nav-item">Settings</a>
+                    <a className="nav-item active">Dashboard</a>
+                    <a className="nav-item">Transactions</a>
+                    <a className="nav-item">Schedules</a>
+                    <a className="nav-item" onClick={() => setShowPopup(true)}>Users</a>
+                    <a className="nav-item">Settings</a>
                 </nav>
             </div>
 
-            {/* Main Content */}
+            {showPopup && (
+                <>
+                    <div className="overlay" onClick={() => setShowPopup(false)} />
+                    <div className='pop-up'>
+                        <h1>Add New Profile</h1>
+                        <button className="close-btn" onClick={() => setShowPopup(false)}>×</button>
+
+                        <div>
+                            <label>Enter Name*</label>
+                            <input placeholder='Eg. John Doe' />
+                        </div>
+
+                        <div>
+                            <label>Enter Email*</label>
+                            <input placeholder='Eg. John@xyz.com' />
+                        </div>
+
+                        <div>
+                            <label>Enter Phone*</label>
+                            <input placeholder='Eg. 9123456789' />
+                        </div>
+
+                        <button className="next-btn">Next</button>
+                    </div>
+                </>
+            )}
+
             <div className="main-content">
                 <header className="header">
                     <h2>Dashboard</h2>
@@ -41,12 +72,21 @@ const Dashboard = () => {
                         <input type="search" placeholder="Search..." className="search-input" />
                         <button className="notification-btn">🔔</button>
                         <div className="profile-pic">
-                            
+                            <img
+                                src={userProfile.picture || 'https://th.bing.com/th/id/OIP.dCpgPQ0i-xX2gZ-yonm54gHaHa?w=185&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7'}
+                                alt="Profile"
+                                className="profile-pic"
+                                style={{
+                                    width: '35px',
+                                    height: '35px',
+                                    borderRadius: '50%',
+                                    objectFit: 'cover'
+                                }}
+                            />
                         </div>
                     </div>
                 </header>
 
-                {/* Stats Grid */}
                 <div className="stats-grid">
                     <div className="stat-card">
                         <div className="stat-icon">💰</div>
@@ -82,7 +122,6 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Activities Chart */}
                 <div className="chart-card">
                     <h3>Activities</h3>
                     <p className="chart-date">May - June 2021</p>
@@ -99,7 +138,6 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Previous code remains the same until the Products Chart section */}
                 <div className="bottom-grid">
                     <div className="chart-card cc">
                         <h3>Top products</h3>
@@ -135,7 +173,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    {/* Rest of the code remains the same */}
+
                     <div className="add-profile-card">
                         <button className="add-profile-btn">
                             <span className="plus-icon">+</span>
