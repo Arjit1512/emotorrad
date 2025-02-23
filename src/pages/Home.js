@@ -22,7 +22,7 @@ const Dashboard = () => {
     const { userProfile, setUserProfile } = useMyContext();
 
     const [showPopup, setShowPopup] = useState(false);
-    console.log('USER: ',userProfile);
+    console.log('USER PROFILE: ',userProfile);
 
 
     return (

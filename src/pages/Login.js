@@ -8,15 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { useMyContext } from './Context';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const { userProfile, setUserProfile } = useMyContext();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Login submitted:', email, password);
-  };
 
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
@@ -28,10 +22,6 @@ const Login = () => {
     });
 
     navigate("/home");
-  };
-
-  const handleGoogleError = () => {
-    console.log('Google login failed');
   };
 
   return (
@@ -65,7 +55,7 @@ const Login = () => {
           <div className="oauth-buttons">
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
-              onError={handleGoogleError}
+              onError={() => {console.log('Google login failed')}}
               useOneTap
             />
             <button className="apple-button">
@@ -74,38 +64,26 @@ const Login = () => {
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="login-form">
+          <form className="login-form">
             <div className="form-group">
-              <label htmlFor="email">Email address</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="johndoe@gmail.com"
-              />
+              <label>Email address</label>
+              <input placeholder="johndoe@gmail.com" />
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-              />
+              <label>Password</label>
+              <input type='password' placeholder="••••••••" />
             </div>
 
-            <a href="#" className="forgot-password">Forgot password?</a>
+            <a className="forgot-password">Forgot password?</a>
 
-            <button type="submit" className="sign-in-button">
+            <button type="submit" onClick={() => {navigate("/home")}} className="sign-in-button">
               Sign In
             </button>
           </form>
 
           <p className="register-link">
-            Don't have an account? <a href="#">Register here</a>
+            Don't have an account? <a>Register here</a>
           </p>
         </div>
       </div>
